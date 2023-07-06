@@ -120,7 +120,7 @@ in CSV format, including:
 - pxe_nameserver (ip)
 - pxe_macaddress (mac)
 
-.. code-block::bash
+.. code-block:: bash
 
     name,oob_driver,oob_address,oob_username,oob_password,pxe_address,pxe_gateway,pxe_nameserver,pxe_mac_address
     123453-compute03,redfish,10.12.195.45,admin,p@ssw0rd123!,192.168.192.33/24,192.168.192.1,9.9.9.9,48:df:37:16:53:3c
