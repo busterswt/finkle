@@ -28,15 +28,23 @@
     register: basic_inventory
     delegate_to: localhost
 
-  - name: Show what type of data the bands variable is made up of
-    ansible.builtin.debug:
-      msg: "{{ item | type_debug }}"
-    loop: "{{ basic_inventory.list }}"
+  - name: Create bifrost-inventory directory
+    ansible.builtin.file:
+      path: "{{ playbook_dir }}/../bifrost-inventory"
+      state: directory
+      mode: '0755'
 
-  - name: Generate bifrost baremetal inventory
+  - name: Generate combined bifrost baremetal inventory
     template:
       src: "{{ item.src }}"
-      dest: "{{ playbook_dir }}/../{{ item.dest }}"
+      dest: "{{ playbook_dir }}/../bifrost-inventory/{{ item.dest }}"
       mode: "0644"
     with_items:
-        - { src: 'templates/baremetal.yml.j2', dest: 'baremetal.yml' }
+        - { src: 'templates/baremetal-combined.yml.j2', dest: 'baremetal-combined.yml' }
+
+  - name: Generate individual bifrost baremetal inventory
+    template:
+      src: "templates/baremetal-individual.yml.j2"
+      dest: "{{ playbook_dir }}/../bifrost-inventory/{{ item.name }}.yml"
+      mode: "0644"
+    loop: "{{ basic_inventory.list }}"
