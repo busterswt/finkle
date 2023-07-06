@@ -32,8 +32,35 @@ to both the IPMI and PXE networks of a given cloud
 Prerequisites
 -------------
 
-- Ansible (>=2.15.1)
 - Ubuntu 22.04 LTS (Jammy)
+- 2x Network interfaces (Management & PXE)
+
+- The management interface allows access to/from the Bifrost host, including to IPMI/OOB
+- The PXE interface allows the Bifrost host to respond to DHCP/TFTP requests from baremetal nodes
+
+.. code-block:: bash
+
+    ubuntu@bifrost-demo01:/opt/finkle$ ip a
+    1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+        link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+        inet 127.0.0.1/8 scope host lo
+           valid_lft forever preferred_lft forever
+       inet6 ::1/128 scope host
+           valid_lft forever preferred_lft forever
+    2: ens3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+        link/ether fa:16:3e:b3:e3:4e brd ff:ff:ff:ff:ff:ff
+        altname enp0s3
+        inet 50.57.217.157/28 metric 100 brd 50.57.217.159 scope global dynamic ens3
+           valid_lft 49722sec preferred_lft 49722sec
+        inet6 fe80::f816:3eff:feb3:e34e/64 scope link
+           valid_lft forever preferred_lft forever
+    3: ens4: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+        link/ether fa:16:3e:25:8a:91 brd ff:ff:ff:ff:ff:ff
+        altname enp0s4
+        inet 192.168.55.232/24 brd 192.168.55.255 scope global ens4
+           valid_lft forever preferred_lft forever
+        inet6 fe80::f816:3eff:fe25:8a91/64 scope link
+           valid_lft forever preferred_lft forever
 
 Installation
 ------------

@@ -14,6 +14,7 @@
       redfish_system_id: "/redfish/v1/Systems/11"
       redfish_username: "{{ host['oob_username'] }}"
       redfish_password: "{{ host['oob_password'] }}"
+      redfish_verify_ca: false
     {% endif -%}
     nics:
       - mac: "{{ host['pxe_mac_address'] }}"
