@@ -72,7 +72,10 @@ Set the Bifrost branch
   ``export BIFROST_GIT_BRANCH=${BIFROST_GIT_BRANCH:-"stable/2023.1"}``
 
 Set the Ironic Python Agent branch
-  ``IPA_UPSTREAM_RELEASE=${IPA_UPSTREAM_RELEASE:-"stable-2023.1"}``
+  ``export IPA_UPSTREAM_RELEASE=${IPA_UPSTREAM_RELEASE:-"stable-2023.1"}``
+
+Set the PXE interface
+  ``export BIFROST_NETWORK_INTERFACE=${BIFROST_NETWORK_INTERFACE:-"ens4"}``
 
 Inventory
 ---------

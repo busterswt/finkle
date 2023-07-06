@@ -16,6 +16,7 @@
 # DO NOT MODIFY #
 export BIFROST_GIT_BRANCH=${BIFROST_GIT_BRANCH:-"stable/2023.1"}
 export IPA_UPSTREAM_RELEASE=${IPA_UPSTREAM_RELEASE:-"stable-2023.1"}
+export BIFROST_NETWORK_INTERFACE=${BIFROST_NETWORK_INTERFACE:-"ens4"}
 
 ###################
 #### THE GOODS ####
@@ -37,7 +38,7 @@ popd
 # Run bifrost installer
 pushd /opt/bifrost/playbooks
 source /opt/stack/bifrost/bin/activate
-ansible-playbook -vvvv -i inventory/target install.yaml -e git_branch=$BIFROST_GIT_BRANCH -e ipa_upstream_release=$IPA_UPSTREAM_RELEASE
+ansible-playbook -vvvv -i inventory/target install.yaml -e git_branch=$BIFROST_GIT_BRANCH -e ipa_upstream_release=$IPA_UPSTREAM_RELEASE -e network_interface=$BIFROST_NETWORK_INTERFACE
 popd
 
 
