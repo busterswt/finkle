@@ -1,0 +1,5 @@
+ipa_kernel_url: "http://192.168.1.1:8080/custom_ipa.kernel"
+ipa_ramdisk_url: "http://192.168.1.1:8080/custom_ipa.initramfs"
+image_source: "http://192.168.1.1:8080/custom_deployment_image.qcow2"
+image_checksum: "493972895dc465a09702ce6e85a836c5"
+cpu_arch: "x86_64"

@@ -1,0 +1,42 @@
+---
+#!/bin/bash
+# Copyright 2023, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in witing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+- name: Setup deploy host
+  hosts: localhost
+  gather_facts: true
+  environment: "{{ deployment_environment_variables | default({}) }}"
+  vars_files:
+    - vars/main.yml
+    - defaults/main.yml
+  tasks:
+  - name: Read hosts from CSV and return a dictionary
+    community.general.read_csv:
+      path: "{{ playbook_dir }}/../basic_inventory.csv"
+    register: basic_inventory
+    delegate_to: localhost
+
+  - name: Show what type of data the bands variable is made up of
+    ansible.builtin.debug:
+      msg: "{{ item | type_debug }}"
+    loop: "{{ basic_inventory.list }}"
+
+  - name: Generate bifrost baremetal inventory
+    template:
+      src: "{{ item.src }}"
+      dest: "{{ playbook_dir }}/../{{ item.dest }}"
+      mode: "0644"
+    with_items:
+        - { src: 'templates/baremetal.yml.j2', dest: 'baremetal.yml' }
