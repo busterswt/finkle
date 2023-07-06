@@ -40,10 +40,3 @@ pushd /opt/bifrost/playbooks
 source /opt/stack/bifrost/bin/activate
 ansible-playbook -vvvv -i inventory/target install.yaml -e git_branch=$BIFROST_GIT_BRANCH -e ipa_upstream_release=$IPA_UPSTREAM_RELEASE -e network_interface=$BIFROST_NETWORK_INTERFACE
 popd
-
-
-#mkdir /opt/rpc/
-#python3 -m venv /opt/rpc/kicker
-#/opt/rpc/kicker/bin/activate
-#pip3 install ansible-core>=2.15.1
-#ansible-galaxy collection install -r requirements.yml
