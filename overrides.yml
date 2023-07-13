@@ -1,2 +1,24 @@
 ---
+# Copyright 2023, Rackspace US, Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in witing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# This file contains overrides for the environment. Each value is customizable.
+
+image_source: http://a43d4b1e3ca281ab774f-ff291bb4f52e4081454e47f3f1a3212a.r42.cf1.rackcdn.com/bifrost-ubuntu-jammy-baremetal.qcow2
+image_checksum: http://a43d4b1e3ca281ab774f-ff291bb4f52e4081454e47f3f1a3212a.r42.cf1.rackcdn.com/bifrost-ubuntu-jammy-baremetal.qcow2.md5
+image_type: partition
+root_gb: 30
+disk_label: gpt
+boot_mode: uefi
 

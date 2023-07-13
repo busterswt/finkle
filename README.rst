@@ -70,16 +70,7 @@ components as well as Bifrost:
 
 .. code-block:: bash
 
-    Ubuntu 22.04 LTS
-    ----------------
     cd /opt/finkle; bash install.sh
-
-Overrides
----------
-
-Overrides can be set in `overrides.yml`, which will be read in by Ansible to
-override default values. Other overrides can be set using environment variables
-prior to executing the build, but this will be deprecated in most cases.
 
 ``install.sh`` Options
 ====================
@@ -130,20 +121,27 @@ To generate a Bifrost-friendly inventory file, execute the following from the fi
 
 .. code-block:: bash
 
-    ansible-playbook playbooks/create-inventory.yaml
+    cd /opt/finkle; bash create.sh
 
-The yaml file will be created that can be used by Bifrost for enrollment.
+The generated yaml file(s) will be used by Bifrost for enrollment.
+
+Overrides
+^^^^^^^^^
+
+Overrides can be set in `overrides.yml`, which will be read in by Ansible to
+override default values. Other overrides can be set using environment variables
+prior to executing the build, but this will be deprecated in most cases.
 
 Enrolling
 ---------
 
-To enroll nodes into Bifrost, execute the `enroll-dynamic.yaml` playbook from the bifrost directory:
+To enroll nodes into Bifrost, execute the following from the finkle directory:
 
 .. code-block:: bash
 
-    export BIFROST_INVENTORY_SOURCE=/opt/finkle/baremetal.yml
-    cd /opt/bifrost/playbooks
-    ansible-playbook -vvvv -i inventory/bifrost_inventory.py enroll-dynamic.yaml
+    cd /opt/finkle; bash enroll.sh
+
+New nodes will be enrolled and existing ones untouched (likely failed).
 
 Provisioning
 ------------
