@@ -21,6 +21,11 @@
     instance_info:
       image_source: "{{ image_source }}"
       image_checksum: "{{ image_checksum }}"
+      image_type: "{{ image_type }}"
+      root_gb: "{{ root_gb }}"
+      capabilities:
+        boot_mode: "{{ boot_mode }}"
+        disk_label: "{{ disk_label }}"
     driver: "{{ host['oob_driver'] }}"
     ipv4_address: "{{ host['pxe_address'] | ipaddr('host') }}"
     properties:

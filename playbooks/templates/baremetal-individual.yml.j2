@@ -1,29 +1,33 @@
 ---
-{% for host in basic_inventory.list %}
-  {{ host['name'] }}:
+  {{ item['name'] }}:
     ipa_kernel_url: "{{ ipa_kernel_url }}"
     ipa_ramdisk_url: "{{ ipa_ramdisk_url }}"
-    {% if host['oob_driver'] == "ipmi" -%}
+    {% if item['oob_driver'] == "ipmi" -%}
     driver_info:
-      ipmi_username: "{{ host['oob_username'] }}"
-      ipmi_address: "{{ host['oob_address'] }}"
-      ipmi_password: "{{ host['oob_password'] }}"
-    {% elif host['oob_driver'] == "redfish" -%}
+      ipmi_username: "{{ item['oob_username'] }}"
+      ipmi_address: "{{ item['oob_address'] }}"
+      ipmi_password: "{{ item['oob_password'] }}"
+    {% elif item['oob_driver'] == "redfish" -%}
     driver_info:
-      redfish_address: "https://{{ host['oob_address'] }}"
+      redfish_address: "https://{{ item['oob_address'] }}"
       redfish_system_id: "/redfish/v1/Systems/1"
-      redfish_username: "{{ host['oob_username'] }}"
-      redfish_password: "{{ host['oob_password'] }}"
+      redfish_username: "{{ item['oob_username'] }}"
+      redfish_password: "{{ item['oob_password'] }}"
       redfish_verify_ca: false
     {% endif -%}
     nics:
-      - mac: "{{ host['pxe_mac_address'] }}"
+      - mac: "{{ item['pxe_mac_address'] }}"
     instance_info:
       image_source: "{{ image_source }}"
       image_checksum: "{{ image_checksum }}"
-    driver: "{{ host['oob_driver'] }}"
-    ipv4_address: "{{ host['pxe_address'] | ipaddr('host') }}"
+      image_type: "{{ image_type }}"
+      root_gb: "{{ root_gb }}"
+      capabilities:
+        boot_mode: "{{ boot_mode }}"
+        disk_label: "{{ disk_label }}"
+    driver: "{{ item['oob_driver'] }}"
+    ipv4_address: "{{ item['pxe_address'] | ipaddr('host') }}"
     properties:
       cpu_arch: "{{ cpu_arch }}"
-    name: {{ host['name'] }}
-{% endfor %}
+    name: {{ item['name'] }}
+
