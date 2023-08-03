@@ -1,7 +1,5 @@
 ---
   {{ item['name'] }}:
-    ipa_kernel_url: "{{ ipa_kernel_url }}"
-    ipa_ramdisk_url: "{{ ipa_ramdisk_url }}"
     {% if item['oob_driver'] == "ipmi" -%}
     driver_info:
       ipmi_username: "{{ item['oob_username'] }}"
@@ -26,8 +24,12 @@
         boot_mode: "{{ boot_mode }}"
         disk_label: "{{ disk_label }}"
     driver: "{{ item['oob_driver'] }}"
+    inventory_dhcp: true
     ipv4_address: "{{ item['pxe_address'] | ipaddr('host') }}"
+    ipv4_gateway: "{{ item['pxe_gateway'] }}"
+    ipv4_nameserver: "{{ item['pxe_nameserver'] }}"
     properties:
       cpu_arch: "{{ cpu_arch }}"
+      root_device: {"rotational": false}
     name: {{ item['name'] }}
-
+    ssh_public_key: "{{ ssh_public_key }}"

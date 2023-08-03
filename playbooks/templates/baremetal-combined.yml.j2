@@ -1,8 +1,6 @@
 ---
 {% for host in basic_inventory.list %}
   {{ host['name'] }}:
-    ipa_kernel_url: "{{ ipa_kernel_url }}"
-    ipa_ramdisk_url: "{{ ipa_ramdisk_url }}"
     {% if host['oob_driver'] == "ipmi" -%}
     driver_info:
       ipmi_username: "{{ host['oob_username'] }}"
@@ -27,8 +25,13 @@
         boot_mode: "{{ boot_mode }}"
         disk_label: "{{ disk_label }}"
     driver: "{{ host['oob_driver'] }}"
+    inventory_dhcp: true
     ipv4_address: "{{ host['pxe_address'] | ipaddr('host') }}"
+    ipv4_gateway: "{{ host['pxe_gateway'] }}"
+    ipv4_nameserver: "{{ host['pxe_nameserver'] }}"
     properties:
       cpu_arch: "{{ cpu_arch }}"
+      root_device: {"rotational": false}
     name: {{ host['name'] }}
+    ssh_public_key: "{{ ssh_public_key }}"
 {% endfor %}
